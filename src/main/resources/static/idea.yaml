@@ -1,0 +1,152 @@
+openapi: "3.0.3"
+servers:
+  - url: https://localhost:8080/api/v1
+    variables:
+      basePath:
+        default: /veryCoolApi 
+info:
+  contact:
+    name: VeryCoolApp
+  description: "Add, remove and view IDEAS."
+  title: IDEA API
+  version: v1
+tags:
+  - name: IDEA API
+    description: "All Idea Related APIs"
+paths:
+  /idea:
+    get:
+      description: "Returns all the ideas for viewing"
+      operationId: getIdeas
+      responses:
+        "200":
+          description: OK
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/Ideas"
+      tags:
+        - IDEA API
+    post:
+      description: "Add new idea"
+      operationId: addIdea
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Idea"
+      responses:
+        "200":
+          description: OK
+          content:
+            'application/json':
+              schema:
+               $ref: "#/components/schemas/Idea"
+      tags:
+        - IDEA API
+    put:
+      description: "Add new idea"
+      operationId: updateIdea
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Idea"
+      responses:
+        "200":
+          description: OK
+          content:
+            'application/json':
+              schema:
+               $ref: "#/components/schemas/Idea"
+      tags:
+        - IDEA API
+  /idea/{ideaId}:
+    get:
+      description: "Returns a single idea"
+      operationId: getIdea
+      parameters:
+        - name: ideaId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            'application/json':
+              schema:
+               $ref: "#/components/schemas/Idea"
+      tags:
+        - IDEA API
+    delete:
+      description: "Delete a single idea"
+      operationId: deleteIdea
+      parameters:
+        - name: ideaId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+      tags:
+        - IDEA API
+components:
+ schemas:
+  Ideas:
+    description: "List of Ideas"
+    type: array
+    items:
+      $ref: "#/components/schemas/Idea"
+  Idea:
+    description: Idea model object for API
+    type: object
+    required:
+      - title
+      - description
+      - createdBy
+    properties:
+      id:
+        description: "Idea Id"
+        type: string
+      title:
+        description: "Idea title"
+        type: string
+      description:
+        description: "Idea description"
+        type: string
+      createdBy:
+        description: "Idea created date"
+        type: string
+      createdAt:
+        description: "Idea created date"
+        type: string
+      likes:
+        description: "Likes on the Idea"
+        type: integer
+      comments:
+        description: "Comments on the Idea"
+        type: integer
+  User:
+    description: User model object for API
+    type: object
+    required:
+      - username
+      - password
+      - role
+    properties:
+      id:
+        description: "User Id"
+        type: string
+      username:
+        description: "username"
+        type: string
+      password:
+        description: "password"
+        type: string
+      role:
+        description: "role"
+        type: string
